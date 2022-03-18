@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- extension del reporte vale de entrega, agregada informacion del transporte -->
+    <template id="report_deliveryslip" name="deliveryslip_custom" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@class='table table-sm mt48']" position="after">
+            <table class="table ">
+                <tr>
+                    <t t-if="o.driver_name">
+                        <td><strong>Conductor:</strong> <span t-field="o.driver_name"/></td>
+                    </t>
+                    <t t-if="o.vehicle_brand">
+                        <td><strong>Marca:</strong> <span t-esc="o.vehicle_brand"/></td>
+                    </t>
+                    <t t-if="o.vehicle_model">
+                        <td><strong>Modelo:</strong> <span t-esc="o.vehicle_model"/></td>
+                    </t>
+                    </tr>
+                <tr>
+                    <t t-if="o.driver_identification">
+                        <td><strong>C.I:</strong> <span t-esc="o.driver_identification"/></td>
+                    </t>
+                    <t t-if="o.vehicle_colour">
+                        <td><strong>Color:</strong> <span t-esc="o.vehicle_colour"/></td>
+                    </t>
+                    <t t-if="o.vehicle_plate">
+                        <td><strong>Placa:</strong> <span t-esc="o.vehicle_plate"/></td>
+                    </t>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:50%;"></td>
+                    <td style="width:50%;">
+                        <div style="position:relative; height: 3cm; text-align:center;">
+                            <div style="position: absolute; bottom: 0px; left: 60px; right: 60px;">
+                                <hr style="height: 1px;"/>
+                                <b>AUTORIZACIÓN</b>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+    </template>
+
+</odoo>

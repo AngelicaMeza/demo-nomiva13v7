@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="custom_contract_view_form" model="ir.ui.view">
+            <field name="name">custom.contract.view.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='information_salary_hourly']/group[1]/group[1]" position="replace">
+                    <div name="salary" style="width:100%;">
+                        <h3 style="font-size:20px;">Salarios</h3 >
+                        <group name="salary" style="width:50%;">
+                            <div>
+                                <group>
+                                    <field name="custom_salary"/>
+                                    <field name="wage_type"/>
+                                    <label for="wage"/>
+                                    <div class="o_row" name="wage">
+                                        <field name="hourly_wage" nolabel="1"/>
+                                        <span>/ hora</span>
+                                    </div>
+                                    <field name="advantages" nolabel="1" placeholder="Ventajas..." colspan="2" invisible="1"/>
+                                    <field name="withholding_discount_rate"/>
+                                </group>
+                            </div>
+                        </group>
+
+                        <group name="salary_sso" style="width:50%;">
+                            <div>
+                                <group>
+                                    <field name="compute_field_soo" invisible="1"/>
+                                    <field name="social_security_salary" readonly="1"/>
+                                    <field name="salary_basket_ticket" readonly="1"/>
+                                </group>
+                            </div>
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!--SSO y Cesta ticket en pagos por lotes-->
+        <record id="custom_inherit_payslip_run_view_form" model="ir.ui.view">
+            <field name="name">custom.inherit.payslip.run.view.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group>
+                        <field name="compute_field_payslip_run" invisible="1"/>
+                        <field name="social_security_salary" readonly="1"/>
+                        <field name="salary_basket_ticket" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+    <record id="custom_hr_employee_contract_loans" model="ir.ui.view">
+      <field name="name">custom.hr.employee.contract.loans</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="custom_employee_profit.custom_hr_employee_contract_profit" />
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='group_rigth']/div[1]" position="inside">
+            <group name="loans_group" string='Anticipos de sueldo'>
+              <field name="compute_test_loans" invisible="1"/>
+              <field name="employee_loans" readonly="1"/>
+              <field name="employee_dpres" readonly="1"/>
+              <field name="employee_result_loans" readonly="1"/>
+            </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

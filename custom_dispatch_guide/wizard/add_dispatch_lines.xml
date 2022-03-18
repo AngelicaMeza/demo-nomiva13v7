@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="add_dispatch_wizard_form" model="ir.ui.view">
+        <field name="name">dispatch.lines.wizard.form</field>
+        <field name="model">dispatch.lines.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                     <group>
+                    <field name="sale_order_id"  nolabel="1" options="{'no_create': true}" >
+                        <tree string="Sale order">
+                            <field name="name"/>
+                            <field name="partner_id"/>
+                            <field name="state" />
+                        </tree>
+                    </field>
+                    </group>
+                    
+                </sheet>
+                <footer>
+                    <button name="create_lines" string="Add lines" icon="fa-print"  type="object"/>
+                    <button special="cancel" string="Close" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="dispatch_lines_action" model="ir.actions.act_window">
+        <field name="name">Dispatch Lines</field>
+        <field name="res_model">dispatch.lines.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

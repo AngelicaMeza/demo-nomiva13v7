@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    
+    
+    <record id="custom_hr_employee_contract_profit" model="ir.ui.view">
+      <field name="name">custom.hr.employee.contract.profit</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="custom_employee.custom_contract_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//div[@name='salary']/group[2]" position="after">
+          <br></br>
+          <h3 style="font-size:20px;">Anticipos</h3 >
+          <group name="profit_group" style="width:30%;">
+            <div>
+              <group string="Utilidades">
+                <field name="compute_test" invisible="1"/>
+                <field name="employee_profit" readonly="1"/>
+                <field name="employee_adu" readonly="1"/>
+                <field name="employee_result_profit" readonly="1"/>
+              </group>
+            </div>
+          </group>
+          
+          <group name="loans_group" style="width:30%;">
+            <div>
+              <group string="Anticipos de sueldo">
+                <field name="compute_test_loans" invisible="1"/>
+                <field name="employee_loans" readonly="1"/>
+                <field name="employee_dpres" readonly="1"/>
+                <field name="employee_result_loans" readonly="1"/>
+              </group>
+            </div>
+          </group>
+          
+          <group name="holiday_advance_group" style="width:30%;">
+            <div>
+              <group string="Anticipo de Vacaciones">
+                <field name="compute_test_holiday_advance" invisible="1"/>
+                <field name="employee_holiday_advance" readonly="1"/>
+                <field name="employee_holiday_depresvac_amount" readonly="1"/>
+                <field name="employee_total_holiday_advance" readonly="1"/>
+              </group>
+            </div>
+          </group>
+
+        </xpath>
+      </field>
+    </record>
+
+
+    <!--SSO empleados administrativos en contratos-->
+    <record id="inherit_hr_advance_employee_contract_profit_form" model="ir.ui.view">
+      <field name="name">inherit.hr.advance.employee.contract.profit.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='information']/group[1]/group[1]" position="replace">
+          <div name="salary_admin_employee" style="width:100%;">
+            <h3 style="font-size:20px;">Salarios</h3>
+            <group name="salary_and_advantages_admin" style="width:50%;">
+              <div>
+                <group>
+                  <field name="custom_salary"/>
+                  <field name="wage_type"/>
+                  <label for="wage"/>
+                  <div class="o_row" name="wage">
+                    <field name="wage" nolabel="1"/>
+                    <span>/ mes</span>
+                  </div>
+                  <field name="advantages" nolabel="1" placeholder="Ventajas..." colspan="2" invisible="1"/>
+                  <field name="withholding_discount_rate"/>
+                </group>
+              </div>
+            </group>
+
+            <group name="salary_admin_sso" style="width:50%;">
+              <div>
+                <group>
+                  <field name="compute_field_soo" invisible="1"/>
+                  <field name="social_security_salary"/>
+                  <field name="salary_basket_ticket"/>
+                </group>
+              </div>
+            </group>
+          </div>
+        </xpath>
+
+        <xpath expr="//page[@name='information']/group[1]" position="after">
+          <br></br>
+          <h3 style="font-size:20px;">Anticipos</h3 >
+          <group name="profit_admin_group" style="width:30%;">
+            <div>
+              <group string="Utilidades">
+                <field name="compute_test" invisible="1"/>
+                <field name="employee_profit" readonly="1"/>
+                <field name="employee_adu" readonly="1"/>
+                <field name="employee_result_profit" readonly="1"/>
+              </group>
+            </div>
+          </group>
+
+          <group name="loans_admin_group" style="width:30%;">
+            <div>
+              <group string="Anticipos de sueldo">
+                <field name="compute_test_loans" invisible="1"/>
+                <field name="employee_loans" readonly="1"/>
+                <field name="employee_dpres" readonly="1"/>
+                <field name="employee_result_loans" readonly="1"/>
+              </group>
+            </div>
+          </group>
+
+          <group name="holiday_advance_group" style="width:30%;">
+            <div>
+              <group string="Anticipo de Vacaciones">
+                <field name="compute_test_holiday_advance" invisible="1"/>
+                <field name="employee_holiday_advance" readonly="1"/>
+                <field name="employee_holiday_depresvac_amount" readonly="1"/>
+                <field name="employee_total_holiday_advance" readonly="1"/>
+              </group>
+            </div>
+          </group>
+
+          <group name="contract_fixed_additional_discounts_admin_group" string='Descuentos' style="width:50%;">
+            <field name="employee_fixed_additional_discounts_ids" nolabel="1">
+              <tree>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </tree>
+            </field>
+          </group>
+
+
+          <group name="fixed_additional_income_admin_group" string='Ingresos Adicionales' style="width:50%;">
+            <field name="employee_fixed_additional_income_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

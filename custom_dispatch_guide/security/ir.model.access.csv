@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dispatch_guide_all,dispatch.guide.all,model_dispatch_guide,base.user_admin,1,1,1,1
+
+access_dispatch_guide_line_all,dispatch.guide.line.all,model_dispatch_guide_line,base.user_admin,1,1,1,1
+access_dispatch_guide_all,dispatch.guide.all,model_dispatch_guide,stock.group_stock_user,1,1,1,1
+access_dispatch_guide_line_all,dispatch.guide.line.all,model_dispatch_guide_line,stock.group_stock_user,1,1,1,1

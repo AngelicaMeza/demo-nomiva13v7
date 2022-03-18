@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+
+        <!--Numero de lunes en Nomina-->
+        <record id="custom_hr_payslip_monnday_number_form" model="ir.ui.view">
+            <field name="name">custom.hr.payslip.monnday.number.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field [@name='number']" position="after">
+                    <field name="monday_number_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!--Numero de lunes en Lotes-->
+        <record id="custom_payroll_payslip_run_monday_number_form" model="ir.ui.view">
+            <field name="name">custom.payroll.payslip.run.monday.number.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]/group[1]/div[1]" position="after">
+                    <field name="monday_number_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Número de Lunes -->
+        <record id="custom_monday_number_tree" model="ir.ui.view">
+            <field name="name">custom.monday.number.tree</field>
+            <field name="model">custom_monday_number</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="description"/>
+                    <field name="name"/>
+                    <field name="monday_number_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="custom_monday_number_form" model="ir.ui.view">
+            <field name="name">custom.monday.number.form</field>
+            <field name="model">custom_monday_number</field>
+            <field name="arch" type="xml">
+                <form string="Número de Lunes">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group name="group_top" string="Número de Lunes">
+                            <group name="group_left" style="width:50%;">
+                                <field name="description"/>
+                                <field name="name" required="True"/>
+                            </group>
+                            <group name="group_right" style="width:50%;">
+                                <field name="monday_number_date" required="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_monday_number_action" model="ir.actions.act_window">
+            <field name="name">Número de Lunes</field>
+            <field name="res_model">custom_monday_number</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- actions -->
+        <menuitem id="custom_monday_number_config" name="Número de Lunes" action="custom_monday_number_action" parent="hr_payroll.menu_hr_payroll_configuration" sequence="2"/>
+
+    </data>
+</odoo>

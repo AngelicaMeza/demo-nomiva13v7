@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+
+    <menuitem
+        id="menu_hr_payroll_salary_advance"
+        name="Préstamos y adelantos de sueldo"
+        parent="hr.menu_hr_root"
+        sequence="110"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,126 @@
+<odoo>
+  <data>
+    <record id="custom_inherit_hr_contract_view_form" model="ir.ui.view">
+      <field name="name">custom.inherit.hr.contract.view.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='department_id']" position="after">
+          <field name="compute_field_income_discounts" invisible="1"/>
+        </xpath>
+      </field>
+    </record>
+
+    <!--Ingresos Adicionales Fijos-->
+    <record id="custom_employee_fixed_additional_income_form" model="ir.ui.view">
+      <field name="name">custom.employee.fixed.additional.income.form</field>
+      <field name="model">custom_employee_fixed_additional_income</field>
+      <field name="arch" type="xml">
+        <form string="Ingresos Adicionales Fijos">
+          <header>
+          </header>
+          <sheet>
+            <group name="group_top">
+              <group name="group_left" style="width:50%;">
+                <field name="name"/>
+                <field name="amount"/>
+              </group>
+              <group name="group_right" style="width:50%;">
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Ingresos Adicionales Fijos en Contratos (obreros)-->
+    <record id="custom_hr_employee_fixed_additional_income_form" model="ir.ui.view">
+      <field name="name">custom.hr.employee.fixed.additional.income.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit" />
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='information_salary_hourly']/group[1]" position="after">
+          <group name="fixed_additional_income_group" string='Ingresos Adicionales' style="width:50%;">
+            <field name="employee_fixed_additional_income_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+  <!--Descuentos Adicionales Fijos-->
+  <record id="custom_employee_fixed_additional_discounts_form" model="ir.ui.view">
+      <field name="name">custom.employee.fixed.additional.discounts.form</field>
+      <field name="model">custom_employee_fixed_additional_discounts</field>
+      <field name="arch" type="xml">
+        <form string="Descuentos Adicionales Fijos">
+          <header>
+          </header>
+          <sheet>
+            <group name="group_top">
+              <group name="group_left" style="width:50%;">
+                <field name="name"/>
+                <field name="amount"/>
+              </group>
+              <group name="group_right" style="width:50%;">
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--Descuentos Adicionales Fijos en Contratos (obreros)-->
+    <record id="custom_hr_employee_contract_fixed_additional_discounts_form" model="ir.ui.view">
+      <field name="name">custom.hr.employee.contract.fixed.additional.discounts.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit" />
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='information_salary_hourly']/group[1]" position="after">
+          <group name="contract_fixed_additional_discounts_group" string='Descuentos' style="width:50%;">
+            <field name="employee_fixed_additional_discounts_ids" nolabel="1">
+              <tree>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+    <!--Descuentos Adicionales Fijos en Empleados-->
+    <record id="custom_hr_employee_fixed_additional_discounts_form" model="ir.ui.view">
+      <field name="name">custom.hr.employee.fixed.additional.discounts.form</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group[1]" position="after">
+          <group name="employee_fixed_additional_discounts_group" string='Descuentos' style="width:50%;">
+            <field name="employee_fixed_additional_discounts_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,127 @@
+<odoo>
+  <data>
+
+    <!--Tree de anticipos en pagos de nominas-->
+    <record id="hr_custom_advance_form" model="ir.ui.view">
+      <field name="name">hr.custom.advance.form</field>
+      <field name="model">hr.payslip</field>
+      <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group[1]" position="after">
+          <group name="salary_advance" style="width: 50%;" string="Anticipos">
+            <field name="salary_advance_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="date"/>
+                <field name="reason"/>
+                <field name="advancement"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+      </field>
+    </record>
+
+    <!--Tree de anticipos en empleados-->
+    <record id="hr_advance_employee_form" model="ir.ui.view">
+      <field name="name">hr.advance.employee.form</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group[1]" position="after">
+            <group name="salary_advance" style="width: 50%;" string="Anticipos">  
+              <field name="salary_advance_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+                <tree>
+                  <field name="date"/>
+                  <field name="reason"/>
+                  <field name="advancement"/>
+                </tree>
+              </field>
+            </group>
+        </xpath>
+      </field>
+    </record>
+
+    <!--Tree de anticipos en contratos-->
+    <record id="inherit_hr_advance_employee_contract_form" model="ir.ui.view">
+      <field name="name">inherit.hr.advance.employee.contract.form</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group[1]" position="after">
+            <group name="salary_advance" style="width: 50%;" string="Anticipos">  
+              <field name="salary_advance_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+                <tree>
+                  <field name="date"/>
+                  <field name="reason"/>
+                  <field name="advancement"/>
+                </tree>
+              </field>
+            </group>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- Tasa -->
+    <record id="custom_salary_advance_tree" model="ir.ui.view">
+      <field name="name">custom.salary.advance.tree</field>
+      <field name="model">custom_salary_advance</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="advance_mode"/>
+          <field name="name"/>
+          <field name="department_id"/>
+          <field name="date"/>
+          <field name="reason"/>
+          <field name="advancement"/>
+          <field name="currency_id"/>
+          <field name="company_id"/>
+          <field name="credit_account_id" optional="hide"/>
+          <field name="debit_account_id" optional="hide"/>
+          <field name="account_jornal_id" optional="hide"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="custom_salary_advance_form" model="ir.ui.view">
+      <field name="name">custom.salary.advance.form</field>
+      <field name="model">custom_salary_advance</field>
+      <field name="arch" type="xml">
+        <form string="Solicitar anticipo">
+          <header>
+          </header>
+          <sheet>
+            <group name="group_top" string="Anticipo">
+              <group name="group_left" style="width:50%;">
+                <field name="advance_mode" required="1"/>
+                <field name="name" attrs="{'invisible': [('advance_mode', '!=', '1')], 'required': [('advance_mode', '=', '1')]}"/>
+                <field name="department_id" attrs="{'invisible': [('advance_mode', '!=', '2')], 'required': [('advance_mode', '=', '2')]}"/>
+                <field name="company_id" attrs="{'invisible': [('advance_mode', '!=', '3')], 'required': [('advance_mode', '=', '3')]}"/>
+                <field name="date" required="1"/>
+                <field name="reason" required="1"/>
+              </group>
+              <group name="group_right" style="width:50%;">
+                <field name="advancement" required="1"/>
+                <field name="currency_id" required="1"/>
+                <field name="credit_account_id" />
+                <field name="debit_account_id" />
+                <field name="account_jornal_id" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="custom_salary_advance_action" model="ir.actions.act_window">
+      <field name="name">Anticipo</field>
+      <field name="res_model">custom_salary_advance</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+    <menuitem id="menu_hr_payroll_salary_advance" name="Anticipos" parent="hr.menu_hr_root" sequence="110"/>
+
+    <menuitem id="custom_salary_advance_config" name="Solicitar anticipo" action="custom_salary_advance_action" parent="menu_hr_payroll_salary_advance" sequence="1"/>
+
+  </data>
+</odoo>

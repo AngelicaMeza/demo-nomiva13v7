@@ -1,0 +1,431 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_dispatch_guide
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e-20200401\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-14 20:43+0000\n"
+"PO-Revision-Date: 2021-07-14 20:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid ""
+" The Identity Card must only be Numeric. Please correct to proceed to Create"
+" / Edit the record"
+msgstr "La Cédula de Identidad solo debe ser Numérica. Corríjalo para continuar con la creación "
+"/ Editar el registro"
+
+#. module: custom_dispatch_guide
+#: model:ir.actions.report,print_report_name:custom_dispatch_guide.report_guide_consolidated
+msgid "'Guía de Despacho %s' %object.name"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid ""
+"<b/>\n"
+"                      <b>AUTORIZACIÓN</b>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid ""
+"<br/>\n"
+"          <br/>\n"
+"           <span class=\"font-weight-bold\">Observaciones: </span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid ""
+"<br/>\n"
+"          <span class=\"font-weight-bold\">Fecha de emisión: </span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span class=\"font-weight-bold\">Fecha de creación: </span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Bultos</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Cliente</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Dirección</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Factura Pro-Forma</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Nota de Entrega</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Teléfono</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<span>Zona</span>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>C.I:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>Color:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>Conductor:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>Marca:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>Modelo:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "<strong>Placa:</strong>"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid "Add dispatch Lines"
+msgstr "Agregar Lineas"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.add_dispatch_wizard_form
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Add lines"
+msgstr "Agregar Lineas"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__address
+msgid "Address"
+msgstr "Dirección"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.actions.act_window,help:custom_dispatch_guide.dispatch_guide_action
+msgid "Agregue despachos"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.actions.act_window,help:custom_dispatch_guide.dispatch_guide_action
+msgid "Clic en \"Crear\" para agregar un nuevo Despacho"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.add_dispatch_wizard_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Convertir a borrador"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__create_uid
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__create_uid
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__create_date
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__create_date
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: custom_dispatch_guide
+#: model:ir.model,name:custom_dispatch_guide.model_dispatch_guide
+#: model:ir.model,name:custom_dispatch_guide.model_dispatch_guide_line
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Despacho"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.actions.act_window,name:custom_dispatch_guide.dispatch_lines_action
+msgid "Dispatch Lines"
+msgstr "Lineas de Despacho"
+
+#. module: custom_dispatch_guide
+#: model:ir.actions.act_window,name:custom_dispatch_guide.dispatch_guide_action
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__dispatch_id
+#: model:ir.ui.menu,name:custom_dispatch_guide.dispatch_guide_menu
+msgid "Dispatch guide"
+msgstr "Guía de despacho"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__dispatch_type
+msgid "Dispatch_type"
+msgstr "Tipo"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__display_name
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__display_name
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__display_name
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_report_dispatch_guide_report_dispatch_guide__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields.selection,name:custom_dispatch_guide.selection__dispatch_guide__state__done
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_search
+msgid "Done"
+msgstr "Realizado"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields.selection,name:custom_dispatch_guide.selection__dispatch_guide__state__draft
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_search
+msgid "Filter Despacho"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "Guía de Despacho #"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__id
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__id
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__id
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_report_dispatch_guide_report_dispatch_guide__id
+msgid "ID"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__identification_driver
+msgid "Identification"
+msgstr "Cédula de Identidad"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide____last_update
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line____last_update
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard____last_update
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_report_dispatch_guide_report_dispatch_guide____last_update
+msgid "Last Modified on"
+msgstr "Modificada por última vez"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__write_uid
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__write_uid
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__write_date
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__write_date
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualizacion en"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Lines"
+msgstr "Lineas"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__dispatch_lines_ids
+msgid "Lines guide"
+msgstr "Lineas"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__name
+msgid "Name"
+msgstr "Guía de despacho"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__driver
+msgid "Name driver"
+msgstr "Conductor"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_lines_wizard__sale_order_id
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_tree
+msgid "Number"
+msgstr "Referencia"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__sale_order_id
+msgid "Number order"
+msgstr "Numero de Pedido"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__notes
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__package
+msgid "Package"
+msgstr "Bultos"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__partner
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields.selection,name:custom_dispatch_guide.selection__dispatch_guide__dispatch_type__proforma
+msgid "Proforma"
+msgstr "Factura Pro-Forma"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields.selection,name:custom_dispatch_guide.selection__dispatch_guide__dispatch_type__sale
+msgid "Sale"
+msgstr "Nota de Entrega"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.add_dispatch_wizard_form
+msgid "Sale order"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__state
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_search
+msgid "State"
+msgstr "Estado"
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/report/dispatch_guide_report.py:0
+#, python-format
+msgid "The Dispatch Guide must be in the Done state in order to print"
+msgstr ""
+"La Guía de despacho debe estar en estado Realizado para poder imprimir."
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid "The Identity Card cannot be less than 7 digits nor greater than 8."
+msgstr "La Cédula de Identidad no puede tener menos de 7 dígitos ni más de 8."
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Total Package"
+msgstr "Total Bultos"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.report_dispatch_guide
+msgid "Total:"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid "Unable to delete dispatch guide in done status"
+msgstr "No puede eliminar la guia de despacho en estado Realizado"
+
+#. module: custom_dispatch_guide
+#: model_terms:ir.ui.view,arch_db:custom_dispatch_guide.dispatch_guide_view_form
+msgid "Validar"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__vehicle_colour
+msgid "Vehicle Colour"
+msgstr "Color"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__vehicle_brand
+msgid "Vehicle brand"
+msgstr "Marca"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__vehicle_model
+msgid "Vehicle model"
+msgstr "Modelo"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide__vehicle_plate
+msgid "Vehicle plate"
+msgstr "Nº Placa"
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/wizard/add_dispacth_lines.py:0
+#, python-format
+msgid "You already have an order loaded in your dispatch lines!"
+msgstr "Ya tienes un pedido cargado en tus líneas de despacho"
+
+#. module: custom_dispatch_guide
+#: model:ir.model.fields,field_description:custom_dispatch_guide.field_dispatch_guide_line__zone
+msgid "Zone"
+msgstr "Zona"
+
+#. module: custom_dispatch_guide
+#: model:ir.actions.report,name:custom_dispatch_guide.report_guide_consolidated
+msgid "dispatch guide"
+msgstr "Guía de Despacho"
+
+#. module: custom_dispatch_guide
+#: model:ir.model,name:custom_dispatch_guide.model_dispatch_lines_wizard
+msgid "dispatch wizard"
+msgstr "Despacho"
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid "it has no loaded dispatch lines"
+msgstr "No tiene lineas de despacho cargadas"
+
+#. module: custom_dispatch_guide
+#: model:ir.model,name:custom_dispatch_guide.model_report_dispatch_guide_report_dispatch_guide
+msgid "report.custom_dispatch_guide.report_dispatch_guide"
+msgstr ""
+
+#. module: custom_dispatch_guide
+#: code:addons/custom_dispatch_guide/models/custom_dispatch_guide.py:0
+#, python-format
+msgid "the order number has 0 packages"
+msgstr "un numero de pedido no tiene bultos cargados"

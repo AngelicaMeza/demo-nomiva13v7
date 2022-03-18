@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <!--Tasa en Nomina-->
+        <record id="custom_payroll_form" model="ir.ui.view">
+            <field name="name">custom.payroll.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field [@name='struct_id']" position="after">
+                    <field name="custom_currency_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!--Tasa en Lotes-->
+        <record id="custom_payroll_payslip_run_form" model="ir.ui.view">
+            <field name="name">custom.payroll.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]/group[1]/div[1]" position="after">
+                    <field name="custom_currency_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Tasa -->
+        <record id="custom_rate_tree" model="ir.ui.view">
+            <field name="name">custom.rate.tree</field>
+            <field name="model">custom_currency_rate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="description"/>
+                    <field name="name"/>
+                    <field name="rate_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="custom_rate_form" model="ir.ui.view">
+            <field name="name">custom.rate.form</field>
+            <field name="model">custom_currency_rate</field>
+            <field name="arch" type="xml">
+                <form string="Tasa">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group name="group_top" string="Tasa">
+                            <group name="group_left" style="width:50%;">
+                                <field name="description"/>
+                                <field name="name" required="True"/>
+                            </group>
+                            <group name="group_right" style="width:50%;">
+                                <field name="rate_date" required="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_rate_action" model="ir.actions.act_window">
+            <field name="name">Tasa</field>
+            <field name="res_model">custom_currency_rate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- actions -->
+        <menuitem id="custom_rate_config" name="Tasa" action="custom_rate_action" parent="hr_payroll.menu_hr_payroll_configuration" sequence="1"/>
+
+    </data>
+</odoo>

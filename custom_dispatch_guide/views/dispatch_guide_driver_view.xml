@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- Modificando la vista form de hr.employee -->
+	<!-- <record id="view_hr_employee_dispatch_guide_driver_form" model="ir.ui.view">
+		<field name="name">view.hr.employee.dispatch.guide.driver.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='job_id']" position="after">
+				<field name="is_driver"/>
+			</xpath>
+			<xpath expr="//page[@name='hr_settings']" position="after">
+				<page name="driver_information" string="Información Conductor" attrs="{'invisible': [('is_driver', '=', False)]}" groups="hr.group_hr_user">
+					<group name="group_top">
+						<group name="group_left" string="Información del conductor">
+							<field name="identification_driver" placeholder="Ej. 19763505"/>
+						</group>
+						<group name="group_left" string="Información del vehículo">
+							<field name="vehicle_brand"/>
+							<field name="vehicle_model"/>
+							<field name="vehicle_colour"/>
+							<field name="vehicle_plate"/>
+						</group>
+					</group>
+				</page>
+			</xpath>
+		</field>
+	</record> -->
+</odoo>

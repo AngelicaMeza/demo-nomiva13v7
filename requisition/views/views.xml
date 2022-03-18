@@ -1,0 +1,323 @@
+<odoo>
+  <data>
+
+  <record id="prueba_inherit_location" model="ir.ui.view">
+    <field name="name">prueba.inherit.location</field>
+    <field name="model">stock.location</field>
+    <field name="inherit_id" ref="stock.view_location_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//sheet" position="inside">
+        <field name="childs_ids_all" invisible="True"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- check de indentificacion de operacion de identificacion -->
+  <record id="view_picking_type_form_inherit_stock" model="ir.ui.view">
+    <field name="name">stock.picking.type.view.form.inherit</field>
+    <field name="model">stock.picking.type</field>
+    <field name="inherit_id" ref="stock.view_picking_type_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='show_reserved']" position="after">
+        <field name="requisition_op"/>
+      </xpath>
+      <xpath expr="//field[@name='requisition_op']" position="after">
+        <field name="requisition_warehouse" widget="selection" domain="[('requisitions','=',True)]" attrs="{'invisible':[('requisition_op', '=', False)], 'required': [('requisition_op', '=', True)] }" />
+      </xpath>
+    </field>
+  </record>
+
+  <!-- codigo de identificacion unico de almacen  -->
+  <record id="code_inherit_view_warehouse" model="ir.ui.view">
+    <field name="name">code.inherit.view.form</field>
+    <field name="model">stock.warehouse</field>
+    <field name="inherit_id" ref="stock.view_warehouse"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='code']" position="after">
+        <field name="warehouse_code"/>
+      </xpath>
+      <xpath expr="//field[@name='warehouse_code']" position="after">
+        <field name="requisitions"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- agregado del codigo de almacen a la vista lista -->
+  <record id="code_inherit_view_warehouse_tree" model="ir.ui.view">
+    <field name="name">code.inherit.view.warehouse.tree</field>
+    <field name="model">stock.warehouse</field>
+    <field name="inherit_id" ref="stock.view_warehouse_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='company_id']" position="after">
+        <field name="warehouse_code"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- selector de almacen por usuario -->
+  <record id="view_users_form_inherit_base" model="ir.ui.view">
+    <field name="name">base.view.form.inherit</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook/page[1]/group[1]" position="before">
+        <group name="group_top">
+          <group name="group_right">
+            <field name="user_warehouse_id" string="Almacén" widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'invisible': [('sel_groups_1_8_9','!=',1)], 'required': [('in_group_26','=',True), ('in_group_27','=',False)], 'readonly': [('sel_groups_1_8_9','!=',1)]}"/>
+          </group>
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- modificacion del flujo de aprobaciones -->
+  <record id="requisition_inherit_out_view" model="ir.ui.view">
+    <field name="name">requisition.inherit.out.view</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+      <!-- agregado de estados y botones al flujo -->
+      <xpath expr="//header/field[@name='state']" position="replace">
+        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,partially_available,assigned,done" />
+        <button string="Aprobar" name="action_approval" attrs="{'invisible': [('state', '!=', 'waiting_approval_r')]}" type="object" class="oe_highlight" groups="requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery, stock.group_stock_manager"/>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="need_approve" attrs="{'invisible': ['|', '|', ('state', '!=', 'assigned'), ('is_locked', '=', False), ('requi', '=', True)]}" string="Marcar por aprobar" class="oe_highlight" groups="stock.group_stock_user" type="object" help="Marcar la transferencia para ser aprobada"/>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="action_approval_all" attrs="{'invisible': ['|', '|', ('state', '!=', 'waiting_approval_all'), ('is_locked', '=', False), ('requi', '=', True)]}" string="Aprobar" class="oe_highlight" groups="requisition.group_stock_manager_nursery, requisition.group_stock_manager_warehouse, stock.group_stock_manager" type="object" help="Aprobar la transferencia"/>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de validacion -->
+      <xpath expr="//header/button[3]" position="attributes">
+        <attribute name="groups">requisition.group_stock_ac, stock.group_stock_manager, requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery</attribute>
+        <attribute name="attrs">{'invisible': ['|', '|', ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False), ('requi', '=', False)]}</attribute>
+      </xpath>
+      <xpath expr="//header/button[4]" position="attributes">
+        <attribute name="groups">requisition.group_stock_ac, stock.group_stock_manager, requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery</attribute>
+        <attribute name="attrs">{'invisible': ['|', '|',('state', 'not in', ('waiting','confirmed')), ('show_validate', '=', False), ('requi', '=', False)]}</attribute>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="button_validate" attrs="{'invisible': ['|', ('state', 'not in', ('approved'))]}" string="Validar" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+      </xpath>
+
+
+      <!-- asignacion de grupos al boton de disponibilidad -->
+      <xpath expr="//header/button[@name='action_assign']" position="attributes">
+        <attribute name="groups">requisition.group_stock_ac, stock.group_stock_manager, requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery</attribute>
+        <attribute name="attrs">{'invisible': ['|',('show_check_availability', '=', False), ('requi', '=', False)]}</attribute>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button string="Comprobar disponibilidad" name="action_assign" attrs="{'invisible': ['|',('show_check_availability', '=', False),('requi','=',True)]}" type="object" class="oe_highlight"/>
+      </xpath>
+
+
+      <!-- asignacion de grupos al boton de cancelar -->
+      <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+        <attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ('waiting_approval_r', 'confirmed', 'partially_available', 'draft', 'waiting')), ('is_locked', '=', False),('requi','=',False)]}</attribute>
+      </xpath>
+      <xpath expr="//header/button[@name='action_cancel']" position="after">
+        <button name="action_cancel" attrs="{'invisible': ['|', '|', ('state', '!=', 'assigned'), ('is_locked', '=', False), ('requi','=', False)]}" string="Cancelar" groups="requisition.group_stock_ac, stock.group_stock_manager, requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery" type="object"/>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="action_cancel" attrs="{'invisible': ['|', '|', ('state', 'in', ('done', 'cancel')), ('is_locked', '=', False), ('requi','=', True)]}" string="Cancelar" groups="stock.group_stock_user" type="object"/>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de desechar -->
+      <xpath expr="//header/button[@name='button_scrap']" position="attributes">
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_manager_warehouse, requisition.group_stock_manager_nursery</attribute>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de desbloquear -->
+      <xpath expr="//header/button[10]" position="attributes">
+        <attribute name="attrs">{'invisible': ['|', '|', ('state', 'in', ('draft','cancel', 'waiting_approval_r')), ('is_locked', '=', False), ('requi','=',False)]}</attribute>
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_unlock_button</attribute>
+      </xpath>
+      <xpath expr="//header/button[11]" position="attributes">
+        <attribute name="attrs">{'invisible': ['|', '|', ('state', 'in', ('draft','cancel', 'waiting_approval_r')), ('is_locked', '=', True), ('requi','=', False)]}</attribute>
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_unlock_button</attribute>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="action_toggle_is_locked" attrs="{'invisible': ['|', '|', ('state', '!=', 'waiting_approval_r'), ('is_locked', '=', False), ('requi', '=', False)]}" string="Desbloquear" groups="stock.group_stock_user" type="object" help="If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking)."/>                    <button name="action_toggle_is_locked" attrs="{'invisible': ['|', '|', ('is_locked', '=', True),('state', '!=', 'waiting_approval_r'), ('requi', '=', False)]}" string="Bloquear" class="oe_highlight" groups="stock.group_stock_user" type="object"/>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="action_toggle_is_locked" attrs="{'invisible': ['|', '|', ('state', 'not in', ('waiting','confirmed','assigned','waiting_approval_all')), ('is_locked', '=', False), ('requi', '=', True)]}" string="Desbloquear" groups="stock.group_stock_user" type="object" help="If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking)."/>                    <button name="action_toggle_is_locked" attrs="{'invisible': ['|','|',('is_locked', '=', True),('state', 'not in', ('waiting','confirmed','assigned','waiting_approval_all')),('requi', '=', True)]}" string="Bloquear" class="oe_highlight" groups="stock.group_stock_user" type="object"/>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de anular reserva -->
+      <xpath expr="//header/button[@name='do_unreserve']" position="attributes">
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_unreserve_button</attribute>
+        <attribute name="attrs">{'invisible': ['|', '|', '|', '|', ('picking_type_code', '=', 'incoming'), ('requi', '=', False), ('is_locked', '=', False), '&amp;', ('state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}</attribute>
+      </xpath>
+      <xpath expr="//header/button[11]" position="after">
+        <button name="do_unreserve" string="Anular reserva" groups="base.group_user" type="object" attrs="{'invisible': ['|', '|', '|', '|', ('picking_type_code', '=', 'incoming'), ('requi', '=', True), ('is_locked', '=', False), '&amp;', ('state', 'not in', ('assigned', 'partially_available')), ('move_type', '!=', 'one'), '&amp;', ('state', 'not in', ('assigned', 'partially_available', 'confirmed')), ('move_type', '=', 'one')]}"/>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de imprimir -->
+      <xpath expr="//header/button[@name='do_print_picking']" position="attributes">
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_print_button</attribute>
+      </xpath>
+      <xpath expr="//header/button[6]" position="attributes">
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_print_button</attribute>
+      </xpath>
+
+      <!-- asignacion de grupos al boton de devolver -->
+      <xpath expr="//header/button[7]" position="attributes">
+        <attribute name="groups">stock.group_stock_manager, requisition.group_stock_return_button</attribute>
+      </xpath>
+
+      <!-- campo de aprovacion -->
+      <xpath expr="//sheet/group[1]/group[2]/field[@name='origin']" position="after">
+        <field name="approve_user" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+      </xpath>
+
+      <!-- esconder el boton de editar -->
+      <!-- <xpath expr="//header" position="inside">
+        <field name="x_css" invisible="True"/>
+      </xpath> -->
+
+      <!-- ubucaciones filtradas por almacen -->
+      <xpath expr="//sheet/group[1]/group[1]/field[@name='location_id']" position="after">
+        <field name="warehouse_locations" invisible="True" />
+      </xpath>
+
+      <xpath expr="//sheet/group[1]/group[1]/field[@name='location_id']" position="attributes">
+        <attribute name="domain">[('id','in',warehouse_locations)]</attribute>
+      </xpath>
+
+      <xpath expr="//sheet/group[1]/group[1]/field[@name='location_dest_id']" position="attributes">
+        <attribute name="domain">[('id','in',warehouse_locations)]</attribute>
+      </xpath>
+
+      <!-- check de operacion de requisicion en vista -->
+      <xpath expr="//sheet/group[1]/group[1]/field[@name='location_id']" position="after">
+        <field name="requi" invisible="True"/>
+      </xpath>
+      <!-- hacer la ubicación destino solo lectura en requisiciones -->
+      <xpath expr="//sheet/group[1]/group[1]/field[@name='location_id']" position="attributes">
+        <attribute name="attrs">{'readonly': ['|',('state', '!=', 'draft'),('requi', '=', True)],'required': True, 'invisible': [('picking_type_code', '=', 'incoming')]}</attribute>
+      </xpath>
+
+    </field>
+  </record> 
+
+  <!-- Modificando la vista kanban -->
+  <record id="stock_picking_type_kanban_inherit_stock" model="ir.ui.view">
+    <field name="name">stock.picking.type.kanban.inherit.stock</field>
+    <field name="model">stock.picking.type</field>
+    <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+    <field name="arch" type="xml">
+      <!-- agregando contador de movimientos por aporbar -->
+      <xpath expr="//field[@name='count_picking_ready']" position="after">
+        <field name="count_picking_waiting_approval" invisible="True"/>
+      </xpath>
+      <xpath expr="//div[@class='container o_kanban_card_content']/div[1]/div[2]/div[2]" position="after">
+        <div t-if="record.count_picking_waiting_approval.raw_value > 0" class="row">
+          <div class="col-9">
+            <a name="get_action_picking_tree_waiting_approval" type="object">
+              Por aprobar
+            </a>
+          </div>
+          <div class="col-3">
+            <field name="count_picking_waiting_approval"/>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="//field[@name='count_picking_ready']" position="after">
+        <field name="count_picking_waiting_approval" invisible="True"/>
+      </xpath>
+      <xpath expr="//div[@class='container o_kanban_card_content']/div[1]/div[2]/div[2]" position="after">
+        <div t-if="record.count_picking_waiting_approval_all.raw_value > 0" class="row">
+          <div class="col-9">
+            <a name="get_action_picking_tree_waiting_approval_all" type="object">
+              Por aprobar
+            </a>
+          </div>
+          <div class="col-3">
+            <field name="count_picking_waiting_approval_all"/>
+          </div>
+        </div>
+      </xpath>
+      <xpath expr="//div[@class='container o_kanban_card_content']/div[1]/div[2]/div[2]" position="after">
+        <div t-if="record.count_picking_approved.raw_value > 0" class="row">
+          <div class="col-9">
+            <a name="get_action_picking_tree_approved" type="object">
+              Aprobado
+            </a>
+          </div>
+          <div class="col-3">
+            <field name="count_picking_approved"/>
+          </div>
+        </div>
+      </xpath>
+      <!-- eliminando opcion de transferencia inmediata -->
+      <xpath expr="//div[@class='container o_kanban_card_manage_pane dropdown-menu']/div[1]/div[2]/div[2]" position="replace">
+        <!-- se deja vacio para elimiarla -->
+      </xpath>
+      <xpath expr="//div[@class='container o_kanban_card_content']/div[1]/div[2]/div[2]" position="after">
+        <field name="im_admin" invisible="True" />
+      </xpath>
+    </field>
+  </record>
+  
+  <!-- añadiendo filtros -->
+  <record id="stock_picking_inherit_filters" model="ir.ui.view">
+    <field name="name">stock.picking.inherit.filters</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='draft']" position="after">
+        <filter name="waiting_approval_r" string="Esperando aprobación" domain="[('state', '=', 'waiting_approval_r')]" help="waiting approval Moves"/>
+        <filter name="waiting_approval_all" string="Esperando aprobación" domain="[('state', '=', 'waiting_approval_all')]" help="waiting approval Moves"/>
+        <filter name="approved" string="Aprobado" domain="[('state', '=', 'approved')]" help="waiting approval Moves"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- accion de filtro para ver por aprobar -->
+  <record id="action_picking_tree_waiting_approval" model="ir.actions.act_window">
+      <field name="name">Transferencias en espera de aprobación</field>
+      <field name="res_model">stock.picking</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree,kanban,form,calendar</field>
+      <field name="domain"></field>
+      <field name="context">{'contact_display': 'partner_address', 'search_default_waiting_approval_r': 1}</field>
+      <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              Las transferencias te permiten mover productos de una ubicación a otra.
+          </p>
+      </field>
+  </record>
+
+  <record id="action_picking_tree_waiting_approval_all" model="ir.actions.act_window">
+      <field name="name">Transferencias en espera de aprobación</field>
+      <field name="res_model">stock.picking</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree,kanban,form,calendar</field>
+      <field name="domain"></field>
+      <field name="context">{'contact_display': 'partner_address', 'search_default_waiting_approval_all': 1}</field>
+      <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              Las transferencias te permiten mover productos de una ubicación a otra.
+          </p>
+      </field>
+  </record>
+
+  <record id="action_picking_tree_approved" model="ir.actions.act_window">
+      <field name="name">Transferencias aprobadas</field>
+      <field name="res_model">stock.picking</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree,kanban,form,calendar</field>
+      <field name="domain"></field>
+      <field name="context">{'contact_display': 'partner_address', 'search_default_approved': 1}</field>
+      <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+      <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              Las transferencias te permiten mover productos de una ubicación a otra.
+          </p>
+      </field>
+  </record>
+  </data>
+</odoo>

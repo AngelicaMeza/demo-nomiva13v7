@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- extension de vista de orden de entrega -->
+    <record id="view_picking_form_inherit_stock" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[4]/group[1]/group[1]" position="after">
+                <group name="right" string="Información de transporte" >
+                    <field name="driver_name" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="driver_identification" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="vehicle_brand" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="vehicle_model" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="vehicle_colour" attrs="{'readonly':[('state','=','done')]}"/>
+                    <field name="vehicle_plate" attrs="{'readonly':[('state','=','done')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

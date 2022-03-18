@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- user groups -->
+    <record id="group_stock_requisitor" model="res.groups">
+        <field name="name">Requisitor</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]" />
+    </record>
+
+    <record id="group_stock_edit_button" model="res.groups">
+        <field name="name">no esconder botón de editar</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="group_stock_unreserve_button" model="res.groups">
+        <field name="name">no esconder botón de anular reserva</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="group_stock_return_button" model="res.groups">
+        <field name="name">no esconder el botón de devolver</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="group_stock_print_button" model="res.groups">
+        <field name="name">no esconder el botón de imprimir</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="group_stock_unlock_button" model="res.groups">
+        <field name="name">no es osconder el botón de desbloquear</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+
+    <record id="group_stock_ac" model="res.groups">
+        <field name="name">Almacenista</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="implied_ids"
+            eval="[(4, ref('stock.group_stock_user')), (4, ref('requisition.group_stock_edit_button')), (4, ref('requisition.group_stock_unreserve_button')), (4, ref('requisition.group_stock_print_button'))]" />
+    </record>
+
+    <record id="group_stock_manager_nursery" model="res.groups">
+        <field name="name">Gerente vivero</field>
+        <field name="category_id" ref="base.module_category_operations_inventory" />
+        <field name="implied_ids"
+            eval="[(4, ref('stock.group_stock_user')), (4, ref('requisition.group_stock_edit_button')), (4, ref('requisition.group_stock_unlock_button')), (4, ref('requisition.group_stock_unreserve_button')),(4, ref('requisition.group_stock_print_button')),(4, ref('requisition.group_stock_return_button'))]" />
+    </record>
+
+    <record id="group_stock_manager_warehouse" model="res.groups">
+        <field name="name">Gerente de almacén</field>
+        <field name="category_id" ref="base.module_category_operations_inventory" />
+        <field name="implied_ids" eval="[(4, ref('requisition.group_stock_manager_nursery'))]" />
+    </record>
+
+    <!-- record rules -->
+    <record id="requisitors_only_see_own_warehouse" model="ir.rule">
+        <field name="name">Usuarios solo pueden los almacenes asignados</field>
+        <field name="model_id" ref="model_stock_picking_type" />
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">[('warehouse_id','in',user.user_warehouse_id.ids)]</field>
+    </record>
+
+    <record id="manager_see_all" model="ir.rule">
+        <field name="name">Administrador puede ver todo</field>
+        <field name="model_id" ref="model_stock_picking_type" />
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">[('im_admin','=',True)]</field>
+    </record>
+
+    <record id="warehouse_see_own_and_requisitions" model="ir.rule">
+        <field name="name">Almacenistas y vivero pueden ver almacenes asignados y requisiciones</field>
+        <field name="model_id" ref="model_stock_picking_type" />
+        <field name="groups"
+            eval="[(4, ref('requisition.group_stock_ac')), (4, ref('requisition.group_stock_manager_nursery'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">['|',('warehouse_id','in',user.user_warehouse_id.ids),('requisition_op','=',True),
+            ('requisition_warehouse','in', user.user_warehouse_id.ids)]</field>
+    </record>
+
+    <record id="users_see_own" model="ir.rule">
+        <field name="name">Usuarios solo pueden el inventario de los almacenes asignados</field>
+        <field name="model_id" ref="stock.model_stock_quant" />
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">[('location_id','in',user.user_warehouse_id.lot_stock_id.childs_ids_all.ids)]</field>
+    </record>
+
+    <record id="manager_see_all_stock" model="ir.rule">
+        <field name="name">Administrador puede ver todo el inventario</field>
+        <field name="model_id" ref="stock.model_stock_quant" />
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="domain_force">[(True,'=',True)]</field>
+    </record>
+
+    <!-- Visibilidad de menus -->
+
+    <!-- 1. Acceso a menu Coste en destino para Administrador y Gerente de almacen-->
+    <record id="stock_landed_costs.menu_stock_landed_cost" model="ir.ui.menu">
+        <field name="groups_id"
+            eval="[(4,ref('stock.group_stock_manager')), (4,ref('group_stock_manager_warehouse'))]" />
+    </record>
+
+    <!-- 2. Acceso a menu Reglas de abastecimiento para Administrador y Gerente de almacen-->
+    <record id="stock.menu_reordering_rules_config" model="ir.ui.menu">
+        <field name="groups_id"
+            eval="[(4,ref('stock.group_stock_manager')), (4,ref('group_stock_manager_warehouse'))]" />
+    </record>
+
+    <!-- 3. Acceso a menu Análisis de almacen para grupo Inventario/Usuario-->
+    <record id="stock_enterprise.stock_dashboard_menuitem" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('stock.group_stock_user'))]" />
+    </record>
+
+    <!-- 4. Acceso a menu Valoracion de inventario para grupos Administrador y Gerente de almacen-->
+    <record id="stock_account.menu_valuation" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('stock.group_stock_manager'))]" />
+    </record>
+
+    <record id="stock.menu_warehouse_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('stock.group_stock_user'))]"/>
+    </record>
+</odoo>

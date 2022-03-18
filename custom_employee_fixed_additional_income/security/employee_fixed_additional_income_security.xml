@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!--custom_employee_fixed_additional_income-->
+        <record id="model_access_custom_employee_fixed_additional_income" model="ir.model.access">
+            <field name="name">model.access.employee.fixed.additional.income</field>
+            <field name="model_id" ref="custom_employee_fixed_additional_income.model_custom_employee_fixed_additional_income"/>
+            <field name="group_id" ref="base.group_system"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!--custom_employee_fixed_additional_discounts-->
+        <record id="model_access_custom_employee_fixed_additional_discounts" model="ir.model.access">
+            <field name="name">model.access.employee.fixed.additional.discounts</field>
+            <field name="model_id" ref="custom_employee_fixed_additional_income.model_custom_employee_fixed_additional_discounts"/>
+            <field name="group_id" ref="base.group_system"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+    
+    </data>
+    
+
+</odoo>

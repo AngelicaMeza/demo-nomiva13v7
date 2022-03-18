@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<report
+		id="report_guide_consolidated"
+		model="dispatch.guide"
+		string="dispatch guide"
+		report_type="qweb-pdf"
+		name="custom_dispatch_guide.report_dispatch_guide"
+		file="custom_dispatch_guide.report_dispatch_guide"
+		print_report_name="'Guía de Despacho %s' %object.name"
+	/>
+
+	<template id="report_dispatch_guide">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<div class="oe_structure"/>
+						<h2 class="mt16 mb32">
+							<span t-if="doc.state not in ['draft','sent']">Guía de Despacho #</span><span t-field="doc.name"/>
+						</h2>
+						<span  class="font-weight-bold">Fecha de creación: </span><span t-field="doc.date" />  <br/>
+						<span class="font-weight-bold">Fecha de emisión: </span><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+						<br/>
+						<br/>
+						<table class="table table-despacho">
+							<thead>
+								<tr>
+									<t t-if="doc.dispatch_type == 'sale'"><th class="text-left"><span>OE</span></th></t>
+									<t t-else=""><th class="text-left"><span>FPF</span></th></t>
+									<th class="text-left"><span>Cliente</span></th>
+									<th class="text-left"><span>Dirección de entrega</span></th>
+									<th class="text-left text-nowrap"><span>Teléfono</span></th>
+									<!-- <th class="text-right"><span>Bultos</span></th>
+									<th class="text-left"><span>Zona</span></th> -->
+								</tr>
+							</thead>
+							<tbody style="font-size: 13px;">
+								<!-- <t t-set="total_package" t-value="0"/> -->
+								<t t-set="total_rows" t-value="len(doc.dispatch_lines_ids)"/>
+								<t t-foreach="doc.dispatch_lines_ids" t-as="line">
+									<tr>
+										<td class="text-left"><span t-esc="line.sale_order_id.name"/></td>
+										<td class="text-left"><span t-esc="line.partner"/></td>
+										<td class="text-left"><span t-esc="line.sale_order_id.partner_shipping_id" t-options="{'widget': 'contact', 'fields': ['address'], 'no_marker': true, 'no_tag_br': True}"/></td>
+										<td class="text-left"><span t-esc="line.phone"/></td>
+										<!-- <td class="text-right"><span t-esc="line.package"/></td>
+										<td class="text-left"><span t-esc="line.zone"/></td> -->
+									</tr>
+									<!-- <t t-set="total_package" t-value="total_package + line.package"/> -->
+								</t>
+								<!-- <tr align="right" class="text-rigth">
+									<td colspan="4"><strong class="mr18"></strong></td>
+									<td align="right"><strong><span>Total: <t t-esc="total_package"/></span></strong></td>
+								</tr> -->
+							</tbody>
+						</table>
+
+						<table class="table table-despacho">
+							<tr>
+								<td><strong>Conductor:</strong> <span t-esc="doc.driver"/></td>
+								<td><strong>Marca:</strong> <span t-esc="doc.vehicle_brand"/></td>
+								<td><strong>Modelo:</strong> <span t-esc="doc.vehicle_model"/></td>
+							</tr>
+							<tr>
+								<td><strong>C.I:</strong> <span t-esc="doc.identification_driver"/></td>
+								<td><strong>Color:</strong> <span t-esc="doc.vehicle_colour"/></td>
+								<td><strong>Placa:</strong> <span t-esc="doc.vehicle_plate"/></td>
+							</tr>
+						</table>
+						<br/>
+						<br/>
+						<span  class="font-weight-bold">Observaciones:</span>
+						<span t-field="doc.notes"/>
+						<table style="width:100%;">
+							<tr>
+								<td style="width:50%;"></td>
+								<td style="width:50%;">
+									<div style="position:relative; height: 7cm; text-align:center;">
+										<div style="position: absolute; bottom: 0; left: 60px; right: 60px;">
+											<hr style="height: 1px;"/>
+											<b>AUTORIZACIÓN</b>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+	<template id="external_layout_inherit" name="external_layout_custom" inherit_id="web.external_layout_standard">
+		<xpath expr="div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace">
+			<div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+				<div class="row">
+					<div class="col-2 mb4">
+						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 3.5cm;" alt="Logo"/>
+					</div>
+					<div class="col-10">
+						<strong style="font-size: 18px;"><span t-field="company.partner_id.name"  /></strong>
+						<div t-field="company.partner_id"
+							t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'
+						/>
+					</div>
+				</div>
+				<div t-if="company.logo or company.report_header" class="row zero_min_height">
+					<div class="col-12">
+						<div style="border-bottom: 1px solid black;"/>
+					</div>
+				</div>
+			</div>
+		</xpath>
+		<xpath expr="//div[@t-attf-class='footer o_standard_footer o_company_#{company.id}_layout']//li[@t-if='company.vat']" position="replace">
+			<li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'RIF'"/>: <span t-field="company.vat"/></li>
+		</xpath>
+	</template>
+
+</odoo>
