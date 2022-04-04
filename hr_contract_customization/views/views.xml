@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+        <!-- Contracts (administrative)-->
+        <record id="hr_contract_view_form_inherit_customization" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit.customization</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[2]/group[1]/group[@name='salary_and_advantages']" position="after">
+                    <separator string="Salary" colspan="4" />
+                    <group name="contact_select_customization">
+                        <field name="custom_salary" required="1" />
+                        <field name="compensated" />
+                        <field name="department_name" invisible="1" />
+                        <field name="night_bonus" />
+                        <field name="lpvh" />
+                    </group>
+
+                    <group name="contact_salary_customization">
+                        <field name="compute_field_soo" invisible="1" />
+                        <field name="social_security_salary" />
+                        <field name="punctuality_bonus" />
+                        <field name="salary_basket_ticket" />
+                    </group>
+
+                    <group name="retentions">
+                        <field name="social_security" />
+                        <field name="forced_unemployment" />
+                        <field name="husing_policy_law" />
+                        <field name="withholding_discount_rate" />
+                    </group>
+                </xpath>
+
+                <!--Advance Page-->
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page name="employee_advance" string="Advances" attrs="{'invisible': [('wage_type', '=', 'hourly')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+                                <group name="gruop_left" style="width:50%;">
+                                    <div>
+                                        <group name="profit_group" style="width:20%;">
+                                            <div>
+                                                <group string="Utilities">
+                                                    <field name="employee_profit" readonly="1" />
+                                                    <field name="employee_adu" readonly="1" />
+                                                    <field name="employee_result_profit" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+
+                                        <group name="loans_group" style="width:20%;">
+                                            <div>
+                                                <group string="Salary advances">
+                                                    <field name="employee_loans" readonly="1" />
+                                                    <field name="employee_dpres" readonly="1" />
+                                                    <field name="employee_result_loans" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="gruop_right" style="width:50%;">
+                                    <div>
+                                        <group name="holiday_advance_group" style="width:20%;">
+                                            <div>
+                                                <group string="Advance vacation">
+                                                    <field name="employee_holiday_advance" readonly="1" />
+                                                    <field name="employee_vacation_bonus" readonly="1" />
+                                                    <field name="employee_holiday_depresvac_amount" readonly="1" />
+                                                    <field name="employee_total_holiday_advance" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+
+                                        <group name="social_benefits_group" style="width:20%;">
+                                            <div>
+                                                <group string="Social benefits">
+                                                    <field name="employee_social_benefits" readonly="1" />
+                                                    <field name="employee_total_social_benefits" readonly="1" />
+                                                    <field name="employee_advance_payment_benefits" readonly="1" />
+                                                    <field name="employee_total_available_social_benefits" readonly="1" />
+                                                    <field name="employee_days_per_year" readonly="1" />
+                                                    <field name="employee_grand_total" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+                                    </div>
+                                </group>
+                            </group>
+                        </div>
+
+                        <!--Tree of Advances in contracts-->
+                        <separator string="Advances" colspan="4" />
+                        <field name="salary_advance_ids" nolabel="1" options="{'no_open': True}" />
+                    </page>
+                </xpath>
+
+                <!-- Page additional income and discount-->
+                <xpath expr="//page[@name='employee_advance']" position="after">
+
+                    <page name="employee_additional_income" string="Incomes and Discounts additionals" attrs="{'invisible': [('wage_type', '=', 'hourly')]}">
+                        <!-- Additional Fixed Income and Discounts on Contracts (administrative)-->
+                        <separator string="Discounts" colspan="4" />
+                        <field name="employee_fixed_additional_discounts_ids" nolabel="1">
+                            <tree>
+                                <field name="name" />
+                                <field name="amount" />
+                                <field name="start_date" />
+                                <field name="end_date" />
+                            </tree>
+                        </field>
+
+                        <separator string="Incomes" colspan="4" />
+                        <field name="employee_fixed_additional_income_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+                            <tree>
+                                <field name="name" />
+                                <field name="amount" />
+                                <field name="start_date" />
+                                <field name="end_date" />
+                            </tree>
+                        </field>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Contracts (workers)-->
+        <record id="hr_payroll_hr_contract_view_form_inherit_employee_seniority" model="ir.ui.view">
+            <field name="name">hr.payroll.hr.contract.view.form.inherit.employee.seniority</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='information_salary_hourly']" position="after">
+                    <page name="employee_advance_hourly" string="Advances" attrs="{'invisible': [('wage_type', '!=', 'hourly')]}">
+                        <div style="width:100%;">
+                            <group name="group_top">
+                                <group name="gruop_left" style="width:50%;">
+                                    <div>
+                                        <group name="profit_group_hourly" style="width:20%;">
+                                            <div>
+                                                <group string="Utilities">
+                                                    <field name="employee_profit" readonly="1" />
+                                                    <field name="employee_adu" readonly="1" />
+                                                    <field name="employee_result_profit" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+
+                                        <group name="loans_group_hourly" style="width:20%;">
+                                            <div>
+                                                <group string="Salary advances">
+                                                    <field name="employee_loans" readonly="1" />
+                                                    <field name="employee_dpres" readonly="1" />
+                                                    <field name="employee_result_loans" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+                                    </div>
+                                </group>
+
+                                <group name="gruop_right" style="width:50%;">
+                                    <div>
+                                        <group name="holiday_advance_group_hourly" style="width:20%;">
+                                            <div>
+                                                <group string="Advance vacation">
+                                                    <field name="employee_holiday_advance" readonly="1" />
+                                                    <field name="employee_vacation_bonus" readonly="1" />
+                                                    <field name="employee_holiday_depresvac_amount" readonly="1" />
+                                                    <field name="employee_total_holiday_advance" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+
+                                        <group name="social_benefits_group_hourly" style="width:20%;">
+                                            <div>
+                                                <group string="Social benefits">
+                                                    <field name="employee_social_benefits" readonly="1" />
+                                                    <field name="employee_total_social_benefits" readonly="1" />
+                                                    <field name="employee_advance_payment_benefits" readonly="1" />
+                                                    <field name="employee_total_available_social_benefits" readonly="1" />
+                                                    <field name="employee_days_per_year" readonly="1" />
+                                                    <field name="employee_grand_total" readonly="1" />
+                                                </group>
+                                            </div>
+                                        </group>
+                                    </div>
+                                </group>
+                            </group>
+                        </div>
+
+                        <!--Tree of Advances in contracts-->
+                        <separator string="Advances" colspan="4" />
+                        <field name="salary_advance_ids" nolabel="1" options="{'no_open': True}" />
+                    </page>
+                </xpath>
+
+                <!-- Page additional income and discount-->
+                <xpath expr="//page[@name='employee_advance_hourly']" position="after">
+                    <!-- Additional Fixed Income and Discounts on Contracts (workers)-->
+                    <page name="employee_additional_income_hourly" string="Incomes and Discounts additionals" attrs="{'invisible': [('wage_type', '!=', 'hourly')]}">
+
+                        <separator string="Discounts" colspan="4" />
+                        <field name="employee_fixed_additional_discounts_ids" nolabel="1">
+                            <tree>
+                                <field name="name" />
+                                <field name="amount" />
+                                <field name="start_date" />
+                                <field name="end_date" />
+                            </tree>
+                        </field>
+                        
+                        <separator string="Incomes" colspan="4" />
+                        <field name="employee_fixed_additional_income_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+                            <tree>
+                                <field name="name" />
+                                <field name="amount" />
+                                <field name="start_date" />
+                                <field name="end_date" />
+                            </tree>
+                        </field>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--Seniority employees in contracts-->
+        <record id="hr_contract_view_form_inherit_employee_seniority" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit.employee.seniority</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]/group[1]" position="before">
+                    <group name="employee_seniority">
+                        <field name="employee_seniority" readonly="1" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Button to update advances-->
+        <record id="hr_contract_view_form_inherit_button_update_advances" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit.button.update.advances</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="update_advances" string="Update Advances" type="object" class="oe_highlight" states="draft,open" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>
