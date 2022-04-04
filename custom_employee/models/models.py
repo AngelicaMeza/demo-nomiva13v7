@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions
+from odoo.exceptions import ValidationError
 import re
 from datetime import date, datetime, time
 from dateutil.relativedelta import relativedelta
@@ -82,6 +83,20 @@ class CustomContract(models.Model):
     salary_basket_ticket = fields.Float(string='Salario Cesta Ticket')
     custom_salary = fields.Float(string="Salario en $")
     withholding_discount_rate = fields.Float(string="Tasa descuento retención", digits=(4, 2))
+    compensated  = fields.Boolean(string="Compensado")
+    department_name = fields.Char(related='department_id.name')
+    night_bonus = fields.Boolean(string="Bono nocturno")
+    lpvh = fields.Boolean(string="LPVH")
+    forced_unemployment = fields.Boolean(string="Paro forzoso")
+    husing_policy_law = fields.Boolean(string="Ley de política habitacional")
+    social_security = fields.Boolean(string='Seguro Social')
+    punctuality_bonus = fields.Float(string="Bono de puntualidad", default=0)
+
+    @api.constrains('custom_salary')
+    def _check_custom_salary(self):
+        if self.custom_salary <= 0.0:
+            raise ValidationError('El Salario en $ no puede ser menor o igual que cero (0).')
+
 
 class HrPayslipRun(models.Model):
     _inherit = 'hr.payslip.run'

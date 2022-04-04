@@ -9,7 +9,7 @@
         Personalización del módulo de empleados
     """,
 
-    'author': "ITSALES",
+    'author': "IT Sales",
     'website': "https://www.itsalescorp.com/",
 
     # Categories can be used to filter modules in modules listing

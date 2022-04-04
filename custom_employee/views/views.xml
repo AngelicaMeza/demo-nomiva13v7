@@ -18,8 +18,8 @@
       <field name="inherit_id" ref="hr.view_employee_form" />
       <field name="arch" type="xml">
         <xpath expr="//page[@name='personal_information']/group/group[1]/field[@name='bank_account_id']" position="after">
-          <field name="account_holder_id"/>
-          <field name="holder_id"/>
+          <field name="account_holder_id" required="1"/>
+          <field name="holder_id" required="1"/>
         </xpath>
       </field>
     </record>

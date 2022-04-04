@@ -8,35 +8,30 @@
             <field name="model">hr.contract</field>
             <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit" />
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='information_salary_hourly']/group[1]/group[1]" position="replace">
-                    <div name="salary" style="width:100%;">
-                        <h3 style="font-size:20px;">Salarios</h3 >
-                        <group name="salary" style="width:50%;">
-                            <div>
-                                <group>
-                                    <field name="custom_salary"/>
-                                    <field name="wage_type"/>
-                                    <label for="wage"/>
-                                    <div class="o_row" name="wage">
-                                        <field name="hourly_wage" nolabel="1"/>
-                                        <span>/ hora</span>
-                                    </div>
-                                    <field name="advantages" nolabel="1" placeholder="Ventajas..." colspan="2" invisible="1"/>
-                                    <field name="withholding_discount_rate"/>
-                                </group>
-                            </div>
-                        </group>
+                <xpath expr="//page[@name='information_salary_hourly']/group[1]/group[1]" position="after">
+                    <separator string="Salarios" colspan="4" />
+                    <group>
+                        <field name="custom_salary" />
+                        <field name="compensated" />
+                        <field name="lpvh" />
+                        <field name="department_name" invisible="1" />
+                        <field name="night_bonus" attrs="{'invisible': [('department_name', '!=', 'Seguridad')]}" />
+                    </group>
 
-                        <group name="salary_sso" style="width:50%;">
-                            <div>
-                                <group>
-                                    <field name="compute_field_soo" invisible="1"/>
-                                    <field name="social_security_salary" readonly="1"/>
-                                    <field name="salary_basket_ticket" readonly="1"/>
-                                </group>
-                            </div>
-                        </group>
-                    </div>
+                    <group name="contact_salary_customization_houry">
+                        <field name="compute_field_soo" invisible="1" />
+                        <field name="social_security_salary" />
+                        <field name="punctuality_bonus" />
+                        <field name="salary_basket_ticket" />
+                    </group>
+
+                    <group name="retentions_hourly">
+                        <field name="social_security" />
+                        <field name="forced_unemployment" />
+                        <field name="husing_policy_law" />
+                        <field name="withholding_discount_rate" />
+                    </group>
+
                 </xpath>
             </field>
         </record>
