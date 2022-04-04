@@ -1,0 +1,109 @@
+<odoo>
+  <data>
+    <!-- hr_employee_salary_advance -->
+    <record id="hr_employee_salary_advance_tree" model="ir.ui.view">
+      <field name="name">hr.employee.salary.advance.tree</field>
+      <field name="model">hr_employee_salary_advance</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="active" invisible="1" />
+          <field name="name" />
+          <field name="department_id" />
+          <field name="date" />
+          <field name="reason" />
+          <field name="advancement" />
+          <field name="currency_id" />
+          <field name="company_id" />
+          <field name="employee_payslip_id" invisible="1" />
+          <field name="employee_ids" optional="hide" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="hr_employee_salary_advance_form" model="ir.ui.view">
+      <field name="name">hr.employee.salary.advance.form</field>
+      <field name="model">hr_employee_salary_advance</field>
+      <field name="arch" type="xml">
+        <form string="Request advance">
+          <header></header>
+          <sheet>
+            <field name="active" invisible="1" />
+            <group name="group_top" string="Advance">
+              <group name="group_left" style="width:50%;">
+                <field name="name" required="1" />
+                <field name="employee_ids" widget="many2many_tags" attrs="{'invisible': [('name', '!=', '1')], 'required': [('name', '!=', '3')]}" />
+                <field name="employee_contract_ids" widget="many2many_tags" attrs="{'invisible': [('name', '!=', '1')], 'required': [('name', '!=', '3')]}" options="{ 'no_open': True}" />
+                <field name="department_id" attrs="{'invisible': [('name', '=', '3')], 'required': [('name', '!=', '3')]}" options="{ 'no_open': True}" />
+                <field name="company_id" options="{ 'no_open': True}" />
+              </group>
+              <group name="group_right" style="width:50%;">
+                <field name="date" required="1" />
+                <field name="reason" required="1" />
+                <field name="advance_vacation" attrs="{'invisible': [('reason', '!=', '4')], 'required': [('reason', '=', '4')]}" />
+                <field name="type_advance_vacation" attrs="{'invisible': [('advance_vacation', '=', False)], 'required': [('advance_vacation', '=', True)]}" />
+                <field name="advancement" required="1" />
+                <field name="currency_id" required="1" options="{ 'no_open': True}" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Archived-->
+    <record id="hr_employee_salary_advance_search" model="ir.ui.view">
+      <field name="name">hr.employee.salary.advance.search</field>
+      <field name="model">hr_employee_salary_advance</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name" />
+          <separator />
+          <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
+        </search>
+      </field>
+    </record>
+
+    <record id="hr_employee_salary_advance_action" model="ir.actions.act_window">
+      <field name="name">Advance</field>
+      <field name="res_model">hr_employee_salary_advance</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+    <menuitem id="menu_hr_employee_salary_advance" name="Advances" parent="hr.menu_hr_root" sequence="96" />
+
+    <menuitem id="hr_employee_salary_advance_config" name="Request advance" action="hr_employee_salary_advance_action" parent="menu_hr_employee_salary_advance" sequence="1" />
+
+    <!--Page of Advances in employees-->
+    <record id="hr_advance_employee_form" model="ir.ui.view">
+      <field name="name">hr.advance.employee.form</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//page[@name='personal_information']" position="after">
+          <page name="employee_advance" string="Advances">
+            <separator string="Advances" />
+            <field name="salary_advance_ids" nolabel="1" options="{'no_open': True}" />
+          </page>
+        </xpath>
+
+        <!-- Additional Fixed Employee Discounts-->
+        <xpath expr="//page[@name='employee_advance']" position="after">
+          <page name="employee_additional_income" string="Incomes and Discounts additionals">
+            <separator string="Discounts" colspan="4" />
+            <field name="employee_fixed_additional_discounts_ids" mode="tree" nolabel="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="name" />
+                <field name="amount" />
+                <field name="start_date" />
+                <field name="end_date" />
+              </tree>
+            </field>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

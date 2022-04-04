@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_model_hr_employee_customization,model_access_hr_employee_salary_advance,hr_employee_customization.model_hr_employee_salary_advance,base.group_user,1,1,1,1
