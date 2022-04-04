@@ -1,0 +1,77 @@
+<odoo>
+  <data>
+    <record id="custom_view_employee_form_inherit" model="ir.ui.view">
+      <field name="name">custom.view.employee.form.inherit</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='bank_account_id']" position="replace">
+          
+          <field name="bank_account_number" context="{'display_partner':True}"
+            attrs="{'invisible' : [('address_home_id', '=', False)], 'required': [('address_home_id', '!=', False)]}"/>
+      <!-- attrs="{'invisible': [('advance_mode', '!=', '1')], 'required': [('advance_mode', '=', '1')]}" -->
+          <field name="bank_id" context="{'display_partner':True}" 
+            attrs="{'invisible' : [('address_home_id', '=', False), ('bank_account_number', '=', False)], 'required': [('bank_account_number', '!=', False)]}"/>
+          
+          <field name="account_type" required="1" 
+            attrs="{'invisible' : [('address_home_id', '=', False)], 'required': [('address_home_id', '!=', False)]}"/>
+        </xpath>
+
+        <xpath expr="//field[@name='country_id']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+
+          <xpath expr="//field[@name='identification_id']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="hr_payroll_structure_type_form_inherit" model="ir.ui.view">
+      <field name="name">hr.payroll.structure.type.form.inherit</field>
+      <field name="model">hr.payroll.structure.type</field>
+      <field name="inherit_id" ref="hr_payroll.hr_payroll_structure_type_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='wage_type']" position="after">
+          <field name="is_worker_payroll" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="res_partner_bank_form_inherit" model="ir.ui.view">
+      <field name="name">res.partner.bank.form.inherit.inherit</field>
+      <field name="model">res.partner.bank</field>
+      <field name="inherit_id" ref="base.view_partner_bank_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+          <field name="is_payroll_account" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="hr_contract_view_form_payroll_inherit" model="ir.ui.view">
+      <field name="name">hr.contract.view.form.payroll.inherit</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='date_start']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="hr_contract_view_form_inherit" model="ir.ui.view">
+      <field name="name">hr.contract.view.form.inherit</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_payroll_account.hr_contract_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date_start']" position="attributes">
+          <attribute name="required">1</attribute>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
